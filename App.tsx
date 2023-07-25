@@ -5,15 +5,29 @@ import {TailwindProvider} from 'tailwind-rn';
 import CustomersScreen from './screens/CustomersScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import RootNavigator from './navigator/RootNavigator';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'https://moundou.stepzen.net/api/gone-kiwi/__graphql',
+  cache: new InMemoryCache(),
+});
+
 
 export default function App() {
+
+  
   return (
-    // @ts-ignore - Tailwind is missing a type definition
-       <TailwindProvider utilities={utilities}>
-          <NavigationContainer>
-            <RootNavigator/>      
-          </NavigationContainer>
-    </TailwindProvider>
+    
+
+        //@ts-ignore - Tailwind is missing a type definition
+      <TailwindProvider utilities={utilities}>
+          <ApolloProvider client={client}>
+              <NavigationContainer>
+                  <RootNavigator/>      
+              </NavigationContainer>
+          </ApolloProvider>
+      </TailwindProvider>
+    
   );
 }
 
